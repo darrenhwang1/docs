@@ -1,0 +1,28 @@
+---
+title: "Deployment"
+description: "Learn how to deploy your agent to production"
+---
+
+# Deploying Your Agent
+
+Deploying your agent to production is a straightforward process that can be completed with a single click.
+
+## Productionizing Your Agent
+
+1. Navigate to your agent in the builder
+2. Click the "Productionize" button in the top right corner
+3. Your agent will be moved to production and you'll receive an API endpoint
+
+## Using Your Deployed Agent
+
+Once deployed, you can invoke your agent using a simple CURL command:
+
+```
+curl -X POST https://app.trykura.com/run_agent \
+-H "Content-Type: application/json" \
+-d '{
+  "agent_id": "fe1593dcf7c64ef1acac576a4909b71a",
+  "parameters": {param_0: "value_0", param_1: "value_1", ...},
+  "api_key": "YOUR_API_KEY"
+}'
+```

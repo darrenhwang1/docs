@@ -1,0 +1,68 @@
+---
+title: "Agent Inputs"
+description: "How to provide and handle input data for your agents"
+icon: "arrow-right-to-bracket"
+---
+
+Agent inputs are the initial data provided to your agent when it starts execution. They define the parameters and configuration that your agent will work with.
+
+## Defining Inputs
+
+Inputs are defined in the Agent Builder under the "Inputs" section. Each input requires:
+
+- A type (string, number, boolean, or json)
+- A default value used when testing in the Builder
+
+```typescript
+// Example input configuration in Agent Builder
+{
+  "searchQuery": {
+    "type": "string",
+    "value": "example search"
+  },
+  "maxResults": {
+    "type": "number",
+    "value": 10
+  },
+  "filterOptions": {
+    "type": "json",
+    "value": {
+      "sortBy": "date",
+      "includeArchived": false
+    }
+  }
+}
+```
+
+When running the agent via API, you must provide the actual input values:
+
+```typescript
+// Example API request
+{
+  "inputs": {
+    "searchQuery": "production deployment",
+    "maxResults": 25,
+    "filterOptions": {
+      "sortBy": "relevance",
+      "includeArchived": true
+    }
+  }
+}
+```
+
+## Input Types
+
+The following input types are supported:
+
+- `string`: Text values
+- `number`: Numeric values
+- `boolean`: True/false values
+- `json`: Complex objects and arrays
+
+## Best Practices
+
+- Always validate input data
+- Provide default values where appropriate
+- Document required vs optional inputs
+- Include type definitions
+- Handle missing or malformed inputs gracefully

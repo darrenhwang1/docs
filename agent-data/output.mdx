@@ -1,0 +1,61 @@
+---
+title: "Agent Output"
+description: "Formatting and returning agent results"
+icon: "arrow-right-from-bracket"
+---
+
+# Agent Output
+
+Agent outputs are the results and data produced by your agent after completing its tasks. You can configure the output format in the Output tab of the builder interface.
+
+## Output Types
+
+Your agent can return data in the following formats:
+
+- String
+- Boolean
+- Integer
+- JSON
+
+## Returning Variables
+
+To return data stored in variables from your agent's execution, use the `${variable_name}` syntax. The `$` symbol distinguishes this from regular JSON notation.
+
+### Example Usage
+
+```javascript
+// Return a single variable
+${company_names_list}
+
+// Combine multiple variables
+{
+  "companies": ${company_names_list},
+  "timestamp": ${extraction_time},
+  "total_count": ${company_count}
+}
+```
+
+### Real-World Example
+
+If you're building an agent to extract company names from Y Combinator:
+
+```javascript
+{
+  "status": "success",
+  "data": {
+    "companies": ${company_names_list},
+    "metadata": {
+      "processedAt": ${processing_timestamp},
+      "totalCompanies": ${total_companies}
+    }
+  }
+}
+```
+
+## Best Practices
+
+### Output Formatting
+
+- Use clear, descriptive variable names
+- Structure complex data in organized JSON objects
+- Include relevant metadata when useful

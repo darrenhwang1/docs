@@ -1,0 +1,48 @@
+---
+title: "Variables"
+description: "Managing data during agent execution"
+icon: "code-branch"
+---
+
+Variables allow you to store and manipulate data throughout your agent's execution lifecycle. They serve as temporary storage and can be modified as your agent performs its tasks.
+
+## Variable Operations
+
+### Input Variables
+
+Input variables are available from the start of agent execution and can be referenced using curly bracket notation:
+
+```javascript
+// Reference input variables
+const userInput = "{user_message}";
+const systemPrompt = "{system_prompt}";
+```
+
+### Runtime Variables
+
+Runtime variables are created by extraction blocks during agent execution and can be referenced using the block's name:
+
+<Frame>
+  <img
+    src="/images/data_extraction_variable.png"
+    width="400"
+    alt="Runtime variable extraction example"
+  />
+</Frame>
+
+In this example, in later blocks, we can reference the extracted companies using `{company_names_list}`.
+
+### Loop Variables
+
+<Frame>
+  <img src="/images/for_loop.png" width="400" alt="For loop variable example" />
+</Frame>
+
+During iteration, use the variable name assigned to the name field in the for loop block to reference the current item in the loop.
+
+- `{item.value}` represents the current item's value
+- `{item.key}` represents either:
+  - The object property name when iterating over an object
+  - The numeric index (0, 1, 2, etc.) when iterating over an array
+
+When these references are used, they will be automatically resolved to their current values during agent execution.

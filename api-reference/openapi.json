@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "Kura API",
+    "description": "API specification for Kura's agent and session management endpoints",
     "license": {
       "name": "MIT"
     },
@@ -10,81 +10,37 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
+      "url": "https://app.trykura.com"
     }
   ],
   "paths": {
-    "/plants": {
+    "/api/load_session_execution_data/{session_id}": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "description": "Retrieves execution data for a specific session",
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "session_id",
+            "in": "path",
+            "description": "Unique identifier for the session",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Session execution data",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
+                  "$ref": "#/components/schemas/SessionExecutionData"
                 }
               }
             }
           },
           "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
+            "description": "Bad request",
             "content": {
               "application/json": {
                 "schema": {
@@ -96,28 +52,32 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
+    "/api/run_agent": {
+      "post": {
+        "description": "Initiates an agent run with specified parameters",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentRunRequest"
+              }
             }
           }
-        ],
+        },
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
+          "200": {
+            "description": "Agent run initiated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentRunResponse"
+                }
+              }
+            }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Bad request",
             "content": {
               "application/json": {
                 "schema": {
@@ -132,41 +92,34 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "SessionExecutionData": {
         "type": "object",
+        "description": "Response schema for session execution data"
+      },
+      "AgentRunRequest": {
+        "type": "object",
+        "required": ["agent_id", "api_key"],
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
+          "agent_id": {
+            "type": "string",
+            "description": "Unique identifier for the agent"
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+          "parameters": {
+            "type": "object",
+            "description": "Key-value pairs of parameters for the agent run",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "api_key": {
+            "type": "string",
+            "description": "API key for authentication"
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
+      "AgentRunResponse": {
+        "type": "object",
+        "description": "Response schema for agent run initiation"
       },
       "Error": {
         "required": [
@@ -183,12 +136,6 @@
             "type": "string"
           }
         }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
       }
     }
   }
