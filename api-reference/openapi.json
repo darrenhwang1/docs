@@ -10,10 +10,47 @@
   },
   "servers": [
     {
-      "url": "https://app.trykura.com"
+      "url": "https://backend.trykura.com"
     }
   ],
   "paths": {
+    "/run_agent": {
+      "post": {
+        "description": "Initiates an agent run with specified parameters",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentRunRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Agent run initiated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentRunResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/load_session_execution_data/{session_id}": {
       "get": {
         "description": "Retrieves execution data for a specific session",
@@ -35,43 +72,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SessionExecutionData"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/run_agent": {
-      "post": {
-        "description": "Initiates an agent run with specified parameters",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AgentRunRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Agent run initiated successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AgentRunResponse"
                 }
               }
             }

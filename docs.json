@@ -45,7 +45,7 @@
             ]
           },
           {
-            "group": "Testing",
+            "group": "Iterating and Testing",
             "pages": [
               "testing"
             ]
@@ -76,8 +76,8 @@
           {
             "group": "Endpoints",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create"
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/get"
             ]
           }
         ]
