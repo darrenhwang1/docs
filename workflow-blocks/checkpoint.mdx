@@ -1,12 +1,10 @@
 ---
-title: "Checkpoint Block"
+title: "Checkpoints"
 description: "Validate workflow states using natural language assertions"
 icon: "flag-checkered"
 ---
 
-# Checkpoint Block
-
-Checkpoint blocks allow you to create validation points in your workflow using natural language assertions. If an assertion fails, the workflow stops immediately to prevent incorrect execution.
+Checkpoints allow you to create validation points in your workflow using natural language assertions. If an assertion fails, the workflow stops immediately to prevent incorrect execution.
 
 ## Overview
 
@@ -19,6 +17,12 @@ Checkpoints help ensure:
 
 ## Example
 
-Consider an invoice submission workflow. Before submitting the invoice, you want to verify the totals are correct:
+Imagine we are building an agent that orders food items for a customer via Postmates. My agent takes the list of items as an input parameter `{items}`.
 
-Prompt: "Assert that the total of the invoice matches the total of the items listed"
+A useful assertion to make is that the items of my order are all listed in the confirmation screen before placing an order.
+
+Before the action block of placing the order, we'll add a checkpoint with the following prompt:
+
+```
+Prompt: "Assert that the `{items}` of my order are all listed and match those shown on the confirmation screen"
+```

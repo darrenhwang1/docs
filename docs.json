@@ -45,6 +45,12 @@
             ]
           },
           {
+            "group": "Testing",
+            "pages": [
+              "testing"
+            ]
+          },
+          {
             "group": "Productionizing",
             "pages": [
               "productionizing/deployment"

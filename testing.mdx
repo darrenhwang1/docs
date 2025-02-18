@@ -1,0 +1,38 @@
+---
+title: "Testing your Agent"
+description: "Learn how to test your agent"
+---
+
+<Note>
+  When testing, workflows will execute using the parameter values set for input
+  variables.
+</Note>
+
+Testing is a crucial part of building reliable AI agents. Kura provides two flexible approaches to test your workflows during development.
+
+## End-to-End Testing
+
+The simplest way to test your entire workflow is using the "Run from Start" button in the builder. This executes your agent from the beginning and runs through all blocks sequentially.
+
+This approach is ideal for:
+
+- Initial workflow validation
+- Final testing before deployment
+- Understanding the complete user journey
+
+## Selective Block Testing
+
+For more granular testing, you can select specific blocks or sequences to test:
+
+1. Click on any workflow block to select it
+2. Hold Shift and click another block to select all blocks in between
+3. Click "Run Selected" to execute just those blocks
+
+This targeted testing approach is particularly valuable when:
+
+- Debugging complex interactions that need multiple test iterations
+- Validating different branching scenarios in your workflow
+- Fine-tuning specific parts of your agent's behavior
+- Testing error handling in specific sections
+
+**Pro Tip**: Use selective block testing to rapidly iterate on challenging parts of your workflow without having to run through the entire agent sequence each time.
