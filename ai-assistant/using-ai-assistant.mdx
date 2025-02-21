@@ -4,17 +4,18 @@ description: "Learn how to leverage the AI Assistant to quickly build your workf
 icon: "sparkles"
 ---
 
+<Note type="warning">
+  For now, it's crucial to limit your instructions to one action at a time. This
+  ensures the AI Assistant can accurately interpret and implement your intended
+  workflow step. See [example instructions](#example-instructions) below for an
+  idea of how to structure your instructions.
+</Note>
+
 The AI Assistant is a powerful tool that helps you build workflows more efficiently by converting natural language instructions into concrete workflow blocks.
 
 ## Overview
 
 AI Assistant allows you to quickly build your workflow by providing in natural language the next action you want your agent to take. It maps your natural language instructions to the actual workflow blocks and asks for your confirmation before making any changes.
-
-<Note>
-  For now, it's crucial to limit your instructions to one action at a time. This
-  ensures the AI Assistant can accurately interpret and implement your intended
-  workflow step.
-</Note>
 
 ## Supported Blocks
 
@@ -63,3 +64,17 @@ If no gap is highlighted, new blocks will be added to the end of your workflow b
 - Review the suggestion carefully before confirming
 - Use natural, conversational language - no need for technical terms
 - Focus on one action per instruction for best results
+
+### Example Instructions
+
+**Instead of writing:**
+
+```
+Login with username: example@example.com and password: hunter2
+```
+
+**Break it down into steps:**
+
+1. "Type example@example.com into the username field"
+2. "Type hunter2 into the password field"
+3. "Click the login button"

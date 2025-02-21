@@ -1,54 +1,30 @@
 ---
-title: "Agent Inputs"
+title: "Inputs"
 description: "How to provide and handle input data for your agents"
 icon: "arrow-right-to-bracket"
 ---
 
-Agent inputs are the initial data provided to your agent when it starts execution. They define the parameters and configuration that your agent will work with.
+Agent inputs are the initial data provided to your agent when executing. They define the parameters and data that your agent will be provided with during execution.
 
 ## Defining Inputs
 
-Inputs are defined in the Agent Builder under the "Inputs" section. Each input requires:
+Inputs are defined in the Agent Builder under the "Inputs" section.
 
+<Frame>
+  <img src="/images/input_1.png" width="400" />
+</Frame>
+
+Each input requires:
+
+- A name
 - A type (string, number, boolean, or json)
 - A default value used when testing in the Builder
 
-```typescript
-// Example input configuration in Agent Builder
-{
-  "searchQuery": {
-    "type": "string",
-    "value": "example search"
-  },
-  "maxResults": {
-    "type": "number",
-    "value": 10
-  },
-  "filterOptions": {
-    "type": "json",
-    "value": {
-      "sortBy": "date",
-      "includeArchived": false
-    }
-  }
-}
-```
+<Frame>
+  <img src="/images/type_value_input.png" width="400" />
+</Frame>
 
-When running the agent via API, you must provide the actual input values:
-
-```typescript
-// Example API request
-{
-  "inputs": {
-    "searchQuery": "production deployment",
-    "maxResults": 25,
-    "filterOptions": {
-      "sortBy": "relevance",
-      "includeArchived": true
-    }
-  }
-}
-```
+When running the agent via API, you must provide the actual input values.
 
 ## Input Types
 
@@ -59,10 +35,26 @@ The following input types are supported:
 - `boolean`: True/false values
 - `json`: Complex objects and arrays
 
-## Best Practices
+## Example
 
-- Always validate input data
-- Provide default values where appropriate
-- Document required vs optional inputs
-- Include type definitions
-- Handle missing or malformed inputs gracefully
+Let's say I'm building an agent that types search queries into a search engine. In this case, I'll want my agent to take the search query as an input.
+
+<Frame>
+  <img src="/images/input_example.png" width="400" />
+</Frame>
+
+Here I've set up a parameter called `search_query` that is a string. When I run my agent in my builder, the value of `search_query` will be `What is the weather like?`.
+
+When I run my agent via API, I'll need to provide the actual input value the agent will use to type into the search engine.
+
+```json
+curl -X POST https://backend.trykura.com/run_agent \
+-H "Content-Type: application/json" \
+-d '{
+  "agent_id": "37eef9ddf627494488cad015967b842a",
+  "parameters": {
+    "search_query": "Who won the last Copa America?"
+  },
+  "api_key": "YOUR_API_KEY"
+}'
+```

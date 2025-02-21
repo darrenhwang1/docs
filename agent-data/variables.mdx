@@ -4,23 +4,13 @@ description: "Managing data during agent execution"
 icon: "code-branch"
 ---
 
-Variables allow you to store and manipulate data throughout your agent's execution lifecycle. They serve as temporary storage and can be modified as your agent performs its tasks.
+Variables allow you to store and use data that your agent extracts through the execution of the agent.
 
 ## Variable Operations
 
-### Input Variables
+### Creating Variables
 
-Input variables are available from the start of agent execution and can be referenced using curly bracket notation:
-
-```javascript
-// Reference input variables
-const userInput = "{user_message}";
-const systemPrompt = "{system_prompt}";
-```
-
-### Runtime Variables
-
-Runtime variables are created by extraction blocks during agent execution and can be referenced using the block's name:
+Variables are automatically populated when creating [extraction blocks](/workflow-blocks/extraction) through the [AI Assistant](/ai-assistant/using-ai-assistant) or executing existing extraction blocks.
 
 <Frame>
   <img
@@ -30,12 +20,26 @@ Runtime variables are created by extraction blocks during agent execution and ca
   />
 </Frame>
 
-In this example, in later blocks, we can reference the extracted companies using `{company_names_list}`.
-
-### Loop Variables
+Populated variables are added into the Variables tab in the Builder after execution.
 
 <Frame>
-  <img src="/images/for_loop.png" width="400" alt="For loop variable example" />
+  <img src="/images/variables_tab.png" width="400" alt="Variables tab" />
+</Frame>
+
+### Referencing Variables
+
+Variables can be referenced to the AI Assistant or directly in prompts using `{variable_name}` syntax.
+
+Note, however that that workflow blocks can only reference variables populated by extraction blocks that are executed prior to the workflow block.
+
+#### Referencing Variables in For Loop Blocks
+
+<Frame>
+  <img
+    src="/images/for_loop_variable_reference.png"
+    width="400"
+    alt="For loop variable example"
+  />
 </Frame>
 
 During iteration, use the variable name assigned to the name field in the for loop block to reference the current item in the loop.

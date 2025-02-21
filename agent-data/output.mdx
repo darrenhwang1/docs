@@ -1,61 +1,38 @@
 ---
-title: "Agent Output"
+title: "Output"
 description: "Formatting and returning agent results"
 icon: "arrow-right-from-bracket"
 ---
 
-# Agent Output
+# Output
 
-Agent outputs are the results and data produced by your agent after completing its tasks. You can configure the output format in the Output tab of the builder interface.
+Outputs are the results and data produced by your agent after completing execution. Configuring output is optional and not needed, especially if you're using the agent to perform actions instead of extracting data.
 
-## Output Types
+You can configure the output format in the Output tab of the builder interface.
 
-Your agent can return data in the following formats:
+<Frame>
+  <img src="/images/output_tab.png" width="400" alt="Output tab" />
+</Frame>
 
-- String
-- Boolean
-- Integer
-- JSON
+You have the ability to output any or all of the data extracted by your agent via a dropdown menu which contains all [Inputs](/agent-data/inputs) and [Variables](/agent-data/variables).
 
-## Returning Variables
+## Example
 
-To return data stored in variables from your agent's execution, use the `${variable_name}` syntax. The `$` symbol distinguishes this from regular JSON notation.
+Let's say you have an agent that extracts both the name and the price of a product from a webpage into separate variables titled "product_name" and "product_price".
 
-### Example Usage
+You can configure the output of your agent to output either or both of these variables.
 
-```javascript
-// Return a single variable
-${company_names_list}
+<Frame>
+  <img src="/images/output_example.png" width="400" alt="Output example" />
+</Frame>
 
-// Combine multiple variables
+When you run your agent, its output will now be a JSON object with the following format:
+
+```json
 {
-  "companies": ${company_names_list},
-  "timestamp": ${extraction_time},
-  "total_count": ${company_count}
+  "product_name": PRODUCT_NAME,
+  "product_price": PRODUCT_PRICE
 }
 ```
 
-### Real-World Example
-
-If you're building an agent to extract company names from Y Combinator:
-
-```javascript
-{
-  "status": "success",
-  "data": {
-    "companies": ${company_names_list},
-    "metadata": {
-      "processedAt": ${processing_timestamp},
-      "totalCompanies": ${total_companies}
-    }
-  }
-}
-```
-
-## Best Practices
-
-### Output Formatting
-
-- Use clear, descriptive variable names
-- Structure complex data in organized JSON objects
-- Include relevant metadata when useful
+where the `PRODUCT_NAME` and `PRODUCT_PRICE` are the values extracted by your agent.
