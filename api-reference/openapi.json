@@ -51,9 +51,9 @@
         }
       }
     },
-    "/api/load_session_execution_data/{session_id}": {
+    "/api/get_session/{session_id}": {
       "get": {
-        "description": "Retrieves execution data for a specific session",
+        "description": "Returns comprehensive information about a session, including its current status, execution metadata, workflow blocks that have been executed, and agent information. This endpoint provides a complete view of the session's execution history and results.",
         "parameters": [
           {
             "name": "session_id",
@@ -88,13 +88,191 @@
           }
         }
       }
+    },
+    "/api/get_session_status/{session_id}": {
+      "get": {
+        "description": "Returns only the status information of a session without the detailed execution data. This lightweight endpoint is useful for polling the current state of a session.",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "Unique identifier for the session",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session status information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "SessionExecutionData": {
         "type": "object",
-        "description": "Response schema for session execution data"
+        "description": "Response schema for session execution data",
+        "required": ["metadata", "blocks", "agent_metadata"],
+        "properties": {
+          "metadata": {
+            "$ref": "#/components/schemas/SessionExecutionMetadata"
+          },
+          "blocks": {
+            "type": "array",
+            "description": "List of executed workflow blocks in the session",
+            "items": {
+              "$ref": "#/components/schemas/WorkBlockExecutionLogResponse"
+            }
+          },
+          "agent_metadata": {
+            "$ref": "#/components/schemas/BasicAgentMetadata"
+          }
+        }
+      },
+      "SessionExecutionMetadata": {
+        "type": "object",
+        "description": "Metadata about the session execution",
+        "required": ["session_id", "agent_id", "version_id", "status", "start_time"],
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "description": "Unique identifier for the session"
+          },
+          "agent_id": {
+            "type": "string",
+            "description": "Identifier of the agent that executed the session"
+          },
+          "version_id": {
+            "type": "integer",
+            "description": "Version identifier of the agent"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the session execution"
+          },
+          "start_time": {
+            "type": "integer",
+            "description": "Unix timestamp when the session started"
+          },
+          "end_time": {
+            "type": "integer",
+            "description": "Unix timestamp when the session ended",
+            "nullable": true
+          },
+          "output": {
+            "description": "Final output of the session execution",
+            "nullable": true
+          },
+          "error_message": {
+            "type": "string",
+            "description": "Error message if the session failed",
+            "nullable": true
+          }
+        }
+      },
+      "WorkBlockExecutionLogResponse": {
+        "type": "object",
+        "description": "Information about an executed workflow block",
+        "required": ["id", "session_id", "block_id", "iteration_number", "cached", "replaced_variables", "original_prompt", "start_time", "end_time"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the block execution"
+          },
+          "session_id": {
+            "type": "string",
+            "description": "Identifier of the session this block belongs to"
+          },
+          "block_id": {
+            "type": "string",
+            "description": "Identifier of the workflow block"
+          },
+          "parent_block_id": {
+            "type": "string",
+            "description": "Identifier of the parent block if applicable",
+            "nullable": true
+          },
+          "iteration_number": {
+            "type": "integer",
+            "description": "Iteration number of the block execution"
+          },
+          "output": {
+            "description": "Output of the block execution",
+            "nullable": true
+          },
+          "cached": {
+            "type": "boolean",
+            "description": "Whether the block execution result was cached"
+          },
+          "replaced_variables": {
+            "type": "object",
+            "description": "Variables that were replaced in the block execution"
+          },
+          "original_prompt": {
+            "type": "string",
+            "description": "Original prompt used for the block execution"
+          },
+          "start_time": {
+            "type": "integer",
+            "description": "Unix timestamp when the block execution started"
+          },
+          "end_time": {
+            "type": "integer",
+            "description": "Unix timestamp when the block execution ended"
+          },
+          "debug_data": {
+            "type": "object",
+            "description": "Debug data for the block execution",
+            "nullable": true
+          },
+          "block_type": {
+            "type": "string",
+            "description": "Type of the workflow block",
+            "nullable": true
+          },
+          "error_message": {
+            "type": "string",
+            "description": "Error message if the block execution failed",
+            "nullable": true
+          }
+        }
+      },
+      "BasicAgentMetadata": {
+        "type": "object",
+        "description": "Basic metadata about the agent",
+        "required": ["agent_id"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the agent",
+            "nullable": true
+          },
+          "agent_id": {
+            "type": "string",
+            "description": "Unique identifier for the agent"
+          }
+        }
       },
       "AgentRunRequest": {
         "type": "object",
@@ -119,7 +297,20 @@
       },
       "AgentRunResponse": {
         "type": "object",
-        "description": "Response schema for agent run initiation"
+        "description": "Response schema for agent run",
+        "required": ["agent_run_url", "session_id"],
+        "properties": {
+          "agent_run_url": {
+            "type": "string",
+            "description": "URL to view the agent running in the web interface",
+            "example": "https://app.trykura.com/public-session-viewer/250ba43a-9597-486a-b718-aa61280fdd65"
+          },
+          "session_id": {
+            "type": "string",
+            "description": "Unique identifier for the created session",
+            "example": "250ba43a-9597-486a-b718-aa61280fdd65"
+          }
+        }
       },
       "Error": {
         "required": [
@@ -134,6 +325,18 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "SessionStatusResponse": {
+        "type": "object",
+        "description": "Response schema for session status information",
+        "required": ["status"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Current status of the session",
+            "enum": ["initializing", "running", "complete", "failed"]
           }
         }
       }
