@@ -4,18 +4,11 @@ description: "Learn how to leverage the AI Assistant to quickly build your workf
 icon: "sparkles"
 ---
 
-<Note type="warning">
-  For now, it's crucial to limit your instructions to one action at a time. This
-  ensures the AI Assistant can accurately interpret and implement your intended
-  workflow step. See [example instructions](#example-instructions) below for an
-  idea of how to structure your instructions.
-</Note>
-
 The AI Assistant is a powerful tool that helps you build workflows more efficiently by converting natural language instructions into concrete workflow blocks.
 
 ## Overview
 
-AI Assistant allows you to quickly build your workflow by providing in natural language the next action you want your agent to take. It maps your natural language instructions to the actual workflow blocks and asks for your confirmation before making any changes.
+AI Assistant allows you to quickly build your workflow by providing natural language instructions for the actions you want your agent to take. It maps your instructions to the actual workflow blocks and asks for your confirmation before making any changes.
 
 ## Supported Blocks
 
@@ -27,9 +20,10 @@ Currently, the AI Assistant supports adding the following types of blocks:
 
 ## How It Works
 
-1. **Describe Your Intent**: Simply tell the AI Assistant what you want your agent to do next in plain English. Keep it focused on a single action at a time
-2. **Review Suggestion**: The AI Assistant will suggest the appropriate workflow block and configuration
-3. **Confirm or Modify**: Accept the suggestion or request modifications before the block is added to your workflow
+1. **Describe Your Intent**: Tell the AI Assistant what you want your agent to do in plain English. You can now include multiple actions in a single instruction
+2. **Review Suggestion**: The AI Assistant will suggest the appropriate workflow blocks and configurations
+3. **Confirm or Modify**: Accept the suggestions or request modifications before the blocks are added to your workflow
+4. **Automatic Execution**: As each workflow block is added, the assistant automatically executes the workflow block in the browser, performing the corresponding action in real-time
 
 ### Block Placement
 
@@ -60,21 +54,26 @@ If no gap is highlighted, new blocks will be added to the end of your workflow b
 
 ## Best Practices
 
-- Be specific in your instructions to get more accurate suggestions
-- Review the suggestion carefully before confirming
+- Be clear and specific in your instructions to get more accurate suggestions
+- Review the suggestions carefully before confirming
 - Use natural, conversational language - no need for technical terms
-- Focus on one action per instruction for best results
+- You can now include multiple actions in a single instruction, but for complex workflows, consider breaking them into logical groups
 
 ### Example Instructions
 
-**Instead of writing:**
+**You can use simple, single-action instructions:**
+
+- "Type example@example.com into the username field"
+- "Click the login button"
+
+**Or comprehensive multi-action instructions:**
 
 ```
 Login with username: example@example.com and password: hunter2
 ```
 
-**Break it down into steps:**
+**And even more complex sequences:**
 
-1. "Type example@example.com into the username field"
-2. "Type hunter2 into the password field"
-3. "Click the login button"
+```
+Go to the products page, find the first item with a 5-star rating, add it to the cart, and proceed to checkout
+```
