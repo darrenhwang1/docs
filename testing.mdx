@@ -1,5 +1,5 @@
 ---
-title: "Testing your Agent"
+title: "Testing and Debugging"
 description: "Learn how to test your agent"
 ---
 
@@ -36,3 +36,23 @@ This targeted testing approach is particularly valuable when:
 - Testing error handling in specific sections
 
 **Pro Tip**: Use selective block testing to rapidly iterate on challenging parts of your workflow without having to run through the entire agent sequence each time.
+
+## Debugging
+
+When testing your workflow, you'll notice a "Terminal" button that appears during execution. This powerful debugging tool gives you an inside look at what's happening behind the scenes:
+
+1. Click the "Terminal" button to open the debug panel
+2. View detailed information about each workflow block's execution
+3. See exactly what actions your agent took and why
+
+The terminal provides valuable insights including:
+
+- A clear explanation of what the agent did at each step
+- The parsed HTML from web interactions
+- Whether the agent used cached information or made fresh requests
+
+This visibility makes it much easier to:
+
+- Identify where things might be going wrong
+- Understand your agent's decision-making process
+- Confirm that your agent is interpreting data correctly

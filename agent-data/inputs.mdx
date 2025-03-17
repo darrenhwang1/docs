@@ -34,6 +34,31 @@ The following input types are supported:
 - `number`: Numeric values
 - `boolean`: True/false values
 - `json`: Complex objects and arrays
+- `totp`: Time-based One-Time Password secrets
+
+## Sensitive Inputs
+
+We also support sensitive inputs, such as passwords or API keys. These inputs are:
+
+- Masked in the UI
+- Never passed to LLMs
+- Securely handled throughout the agent execution process
+
+To mark an input as sensitive, select the "Sensitive" checkbox when creating or editing an input.
+
+<Frame>
+  <img src="/images/sensitive_input.png" width="400" />
+</Frame>
+
+### TOTP Authentication for Multi-Factor Authentication (MFA)
+
+The `totp` input type is a special sensitive input that takes a TOTP (Time-based One-Time Password) secret and automatically generates the corresponding 6-digit code for use in multi-factor authentication flows. This allows your agents to securely authenticate with services that use authenticator apps for MFA without manually generating codes.
+
+When you provide a TOTP secret as input, the system will:
+
+1. Generate the current valid 6-digit code
+2. Make this code available to your agent
+3. Never expose the original TOTP secret to the LLM
 
 ## Example
 

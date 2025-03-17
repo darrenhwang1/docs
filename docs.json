@@ -41,7 +41,8 @@
               "workflow-blocks/extraction",
               "workflow-blocks/checkpoint",
               "workflow-blocks/for-loop",
-              "workflow-blocks/conditional"
+              "workflow-blocks/conditional",
+              "workflow-blocks/caching"
             ]
           },
           {

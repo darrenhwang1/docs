@@ -1,0 +1,69 @@
+---
+title: "Caching"
+description: "Understanding how Kura uses caching to speed up your workflows"
+---
+
+<Note>
+  Caching is automatically enabled for compatible workflow blocks to improve
+  performance and reduce execution time.
+</Note>
+
+## What is Caching?
+
+Caching is a performance optimization that allows your agent to "remember" how to perform certain actions instead of figuring them out from scratch each time. When a workflow block is cached, you'll see a yellow lightning bolt icon ⚡ in the top-left corner of the block.
+
+## How Caching Works
+
+Kura automatically caches two types of workflow blocks:
+
+### Action Blocks
+
+When your agent successfully performs an action (like clicking a button or filling a form), Kura remembers the exact elements that were interacted with. The next time the same action is needed, your agent can use this cached information instead of having to analyze the page again.
+
+**Example**: If your agent learns how to click a "Submit" button once, it can use the cached selector information to find and click that button much faster in future runs.
+
+### Navigation Blocks
+
+For navigation blocks, Kura remembers how to navigate to specific URLs or pages.
+
+**Example**: If your workflow always needs to visit "https://example.com/dashboard", this navigation can be cached for faster execution.
+
+### When Cache Gets Created
+
+The cache for a workflow block is created in two specific situations:
+
+1. When the AI Assistant automatically adds a new workflow block to your agent
+2. When you run a workflow block in the builder and the block does not already have cached data
+
+After this initial caching, your agent will use the cached information for subsequent runs until the cache is cleared or disabled.
+
+## When Caching Doesn't Apply
+
+Kura intelligently decides when caching might not be helpful:
+
+- **For complex decision-making**: If an Action block needs to make different decisions based on what it sees (like "click the submit button if available, otherwise click the next one"), caching is skipped since each situation might require unique handling.
+
+- **For dynamic destinations**: When a Navigation block needs to go to different URLs based on variables, caching is disabled since the destination changes each time.
+
+In these scenarios, your agent will use its full AI capabilities to analyze and respond to the current situation.
+
+## Benefits of Caching
+
+Caching provides two major advantages:
+
+1. **Faster Execution**: Cached blocks run significantly faster since the agent doesn't need to analyze and reason about what to do
+2. **Increased Reliability**: Once a successful approach is cached, it can be consistently repeated
+
+## Managing Cache
+
+You can control caching on a per-block basis:
+
+1. Click on any workflow block to select it
+2. Click "Edit" to open the block's settings
+3. Use the options to either clear the existing cache or disable caching for that block
+
+**Pro Tip**: If your website's structure changes frequently, you might want to clear the cache for affected blocks to ensure your agent adapts to the new layout.
+
+## Fallback Behavior
+
+Even when caching is enabled, Kura is designed to be resilient. If a cached approach fails (for example, if a button has moved or changed), your agent will automatically fall back to its full reasoning capabilities to execute the workflow block.
