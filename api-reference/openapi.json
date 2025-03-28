@@ -126,6 +126,63 @@
           }
         }
       }
+    },
+    "/api/set_agent_auth_data": {
+      "post": {
+        "description": "Securely stores authentication data for an agent. This endpoint encrypts sensitive credentials that the agent needs to access external services. The data is stored securely and can only be accessed using the returned auth token when running the agent.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAgentAuthDataRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication data stored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetAgentAuthDataResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - auth data doesn't match agent arguments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -292,6 +349,11 @@
           "api_key": {
             "type": "string",
             "description": "API key for authentication"
+          },
+          "auth_token": {
+            "type": "string",
+            "description": "Optional token obtained from the [/api/set_agent_auth_data](/api-reference/endpoint/set_agent_auth_data) endpoint that allows the agent to access encrypted authentication data. This token can only be used with the specific agent_id it was generated for.",
+            "nullable": true
           }
         }
       },
@@ -337,6 +399,38 @@
             "type": "string",
             "description": "Current status of the session",
             "enum": ["initializing", "running", "complete", "failed"]
+          }
+        }
+      },
+      "SetAgentAuthDataRequest": {
+        "type": "object",
+        "required": ["agent_id", "api_key", "auth_data"],
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "description": "Unique identifier for the agent"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "API key for authentication"
+          },
+          "auth_data": {
+            "type": "object",
+            "description": "Key-value pairs of sensitive authentication data that will be encrypted. Keys must match the agent's defined input arguments.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SetAgentAuthDataResponse": {
+        "type": "object",
+        "required": ["auth_token"],
+        "properties": {
+          "auth_token": {
+            "type": "string",
+            "description": "Secure token provided when running the agent to access stored authentication data",
+            "example": "YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY3ODkwYWJjZGVmZ2g="
           }
         }
       }

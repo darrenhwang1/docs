@@ -1,0 +1,31 @@
+---
+title: "Set Agent Auth Data"
+openapi: "POST /api/set_agent_auth_data"
+---
+
+## Overview
+
+This endpoint allows you to securely store sensitive authentication credentials that your agent needs to access external services. Instead of hardcoding API keys or passwords in your agent configuration, you can use this endpoint to store them securely.
+
+## How it works
+
+1. You provide your agent ID, API key, and a dictionary of authentication data (key-value pairs)
+2. The system validates that the keys in your auth data match the input arguments defined for your agent
+3. The system encrypts your authentication data and stores it securely
+4. You receive an auth token that you can use when running your agent
+
+## Security features
+
+- Your sensitive data is encrypted before storage
+- The encryption key is never stored - only you receive the auth token
+
+## Using the auth token
+
+When you run your agent using the `/run_agent` endpoint, you can include the auth token to give your agent access to the stored credentials. The system will automatically decrypt and provide the authentication data to your agent during execution.
+
+## Important notes
+
+- The keys in your auth_data must be input arguments defined for your agent
+- Store the returned auth_token securely - it cannot be recovered if lost
+- Create new auth data entries as needed for different credential sets or accounts
+- Auth tokens can only be used with the specific agent_id they were generated for
