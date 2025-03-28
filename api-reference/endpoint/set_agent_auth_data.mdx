@@ -5,27 +5,28 @@ openapi: "POST /api/set_agent_auth_data"
 
 ## Overview
 
-This endpoint allows you to securely store sensitive authentication credentials that your agent needs to access external services. Instead of hardcoding API keys or passwords in your agent configuration, you can use this endpoint to store them securely.
+This endpoint allows you to create a secure authentication profile for your agent. Think of it as setting up a secure vault of credentials that your agent can access when it needs to interact with external services. Instead of hardcoding API keys or passwords in your agent configuration, you can use this endpoint to store them securely.
 
 ## How it works
 
-1. You provide your agent ID, API key, and a dictionary of authentication data (key-value pairs)
+1. You provide an authentication profile name, agent ID, API key, and a dictionary of authentication data (key-value pairs)
 2. The system validates that the keys in your auth data match the input arguments defined for your agent
-3. The system encrypts your authentication data and stores it securely
-4. You receive an auth token that you can use when running your agent
+3. The system creates an encrypted authentication profile and stores it securely
+4. You receive an auth token that you can use when running your agent to access this profile
 
 ## Security features
 
-- Your sensitive data is encrypted before storage
+- Your authentication profile is encrypted before storage
 - The encryption key is never stored - only you receive the auth token
+- Each auth token is bound to a specific agent_id and cannot be used with different agents
 
 ## Using the auth token
 
-When you run your agent using the `/run_agent` endpoint, you can include the auth token to give your agent access to the stored credentials. The system will automatically decrypt and provide the authentication data to your agent during execution.
+When you run your agent using the `/run_agent` endpoint, you can include the auth token to give your agent access to its authentication profile. The system will automatically decrypt and provide the authentication data to your agent during execution.
 
 ## Important notes
 
 - The keys in your auth_data must be input arguments defined for your agent
 - Store the returned auth_token securely - it cannot be recovered if lost
-- Create new auth data entries as needed for different credential sets or accounts
+- Create different authentication profiles as needed for different credential sets or accounts
 - Auth tokens can only be used with the specific agent_id they were generated for

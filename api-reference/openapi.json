@@ -404,8 +404,12 @@
       },
       "SetAgentAuthDataRequest": {
         "type": "object",
-        "required": ["agent_id", "api_key", "auth_data"],
+        "required": ["name", "agent_id", "api_key", "auth_data"],
         "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the auth data entry, usually the name of the account or service"
+          },
           "agent_id": {
             "type": "string",
             "description": "Unique identifier for the agent"
