@@ -1,0 +1,31 @@
+---
+title: "Update Agent Auth Profile"
+openapi: "POST /api/update_agent_auth_profile"
+---
+
+## Overview
+
+This endpoint allows you to update an existing authentication profile for your agent. It lets you add new credentials or modify existing ones in your agent's secure credential vault without having to create an entirely new profile.
+
+## How it works
+
+1. You provide your API key, the auth token from a previously created authentication profile, and the new or updated authentication data (key-value pairs)
+2. The system validates that the keys in your auth data match the input arguments defined for your agent
+3. The system updates the encrypted authentication profile with your new data
+4. Any overlapping keys between the original and new auth data will be replaced with the new values
+
+## Security features
+
+- Your updated authentication data is encrypted before storage using the same security standards as during creation
+- The auth token is never stored directly - only a secure hash is kept for verification
+
+## Using the updated auth data
+
+The same auth token continues to work with the `/run_agent` endpoint. Your agent will automatically have access to the updated credentials during execution.
+
+## Important notes
+
+- You must provide the original auth token to update its associated profile
+- The keys in your auth_data must still match input arguments defined for your agent
+- This is great for updating passwords without creating new profiles or when profiles need to be constructed in multiple steps
+- If you update a key in your auth_data that already exists, the new value will replace the old one
