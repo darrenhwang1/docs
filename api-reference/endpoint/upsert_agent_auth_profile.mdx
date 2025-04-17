@@ -1,0 +1,61 @@
+---
+title: "Upsert Agent Auth Profile"
+openapi: "POST /api/upsert_agent_auth_profile"
+---
+
+## Overview
+
+This endpoint allows you to create or update a secure authentication profile for your agent in a single operation. It provides a convenient way to either set up a new profile or modify an existing one, depending on whether you provide an auth token.
+
+## How it works
+
+1. You provide an agent ID, API key, and authentication data (key-value pairs)
+2. For creation: You also provide a profile name
+3. For updates: You provide the existing auth token
+4. The system validates that the keys in your auth data match the input arguments defined for your agent
+5. The system either creates a new encrypted profile or updates an existing one
+6. For new profiles, you receive an auth token that you can use when running your agent
+
+## Creating a new profile
+
+When no `auth_token` is provided:
+
+- A new authentication profile is created
+- A new auth token is generated and returned to you
+- The `name` parameter is required to identify your new profile
+- **Important:** If the `name` already exists for the given `agent_id`, the existing profile will be replaced with a new one and a new auth token will be generated
+
+## Updating an existing profile
+
+When an `auth_token` is provided:
+
+- The existing profile is located and updated with the new auth data
+- The original auth token remains valid
+
+## Profile identification
+
+- Each authentication profile is uniquely identified by the combination of `agent_id` and `name`
+- If you create a profile with a name that already exists for that agent, the existing profile will be replaced
+- When replacing an existing profile, a new auth token is generated and the old one becomes invalid
+- To update an existing profile without replacing it (and keeping the same auth token), use the `auth_token` parameter instead
+
+## Session storage option
+
+- The `should_save_session` parameter controls whether the agent should maintain session state between runs
+- When set to `true`, any session data from the agent will be preserved for future runs
+- When set to `false` or not provided, session data is not preserved between runs
+
+## Security features
+
+- All authentication data is encrypted using strong AES-GCM encryption
+- Each value in your auth data is encrypted with a unique salt
+- The encryption key is derived from your auth token and never stored
+- Each auth token is bound to a specific agent_id and cannot be used with different agents
+
+## Important notes
+
+- The keys in your auth_data must be input arguments defined for your agent
+- Store the returned auth_token securely - it cannot be recovered if lost
+- When updating, if the auth profile is not found, a 404 error is returned
+- For new profiles, the operation returns either "create" or "replace" in the response. "create" indicates an entirely new profile was created. "replace" indicates an existing profile with the same name was replaced.
+- For updates, the operation returns "update" in the response

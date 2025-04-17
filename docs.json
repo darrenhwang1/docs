@@ -80,8 +80,7 @@
               "api-reference/endpoint/run_agent",
               "api-reference/endpoint/get",
               "api-reference/endpoint/get_session_status",
-              "api-reference/endpoint/create_agent_auth_profile",
-              "api-reference/endpoint/update_agent_auth_profile"
+              "api-reference/endpoint/upsert_agent_auth_profile"
             ]
           }
         ]
