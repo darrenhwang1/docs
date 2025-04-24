@@ -20,12 +20,6 @@ Each input requires:
 - A type (string, number, boolean, or json)
 - A default value used when testing in the Builder
 
-<Frame>
-  <img src="/images/type_value_input.png" width="400" />
-</Frame>
-
-When running the agent via API, you must provide the actual input values.
-
 ## Input Types
 
 The following input types are supported:
@@ -36,6 +30,10 @@ The following input types are supported:
 - `json`: Complex objects and arrays
 - `totp`: Time-based One-Time Password secrets
 
+<Frame>
+  <img src="/images/type_value_input.png" width="400" />
+</Frame>
+
 ## Sensitive Inputs
 
 We also support sensitive inputs, such as passwords or API keys. These inputs are:
@@ -44,11 +42,7 @@ We also support sensitive inputs, such as passwords or API keys. These inputs ar
 - Never passed to LLMs
 - Securely handled throughout the agent execution process
 
-To mark an input as sensitive, select the "Sensitive" checkbox when creating or editing an input.
-
-<Frame>
-  <img src="/images/sensitive_input.png" width="400" />
-</Frame>
+To mark an input as sensitive, select the "Mark as sensitive" checkbox when creating or editing an input.
 
 ### TOTP Authentication for Multi-Factor Authentication (MFA)
 

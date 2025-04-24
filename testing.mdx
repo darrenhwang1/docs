@@ -39,16 +39,17 @@ This targeted testing approach is particularly valuable when:
 
 ## Debugging
 
-When testing your workflow, you'll notice a "Terminal" button that appears during execution. This powerful debugging tool gives you an inside look at what's happening behind the scenes:
+When testing your workflow, you'll notice an "Output" button that appears after executing a block. This opens up a panel that shows the output of each workflow block.
 
-1. Click the "Terminal" button to open the debug panel
-2. View detailed information about each workflow block's execution
-3. See exactly what actions your agent took and why
+<Frame>
+  <img src="/images/output_panel.png" width="400" alt="Output panel" />
+</Frame>
 
-The terminal provides valuable insights including:
+The output provides valuable insights including:
 
-- A clear explanation of what the agent did at each step
-- The parsed HTML from web interactions
+- A clear explanation of what the agent did
+- The parsed HTML that the agent saw
+- The amount of tokens used by the agent
 - Whether the agent used cached information or made fresh requests
 
 This visibility makes it much easier to:

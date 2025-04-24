@@ -23,21 +23,20 @@ You can write conditions in natural language or use basic values:
 
 ### Natural Language Examples
 
+Conditions have access to the context of the current webpage and can reference information from it:
+
 - "Are there more than 5 search results?"
 - "Is the user's email verified?"
-- "Does the response contain an error?"
+- "Is there a captcha on the page?"
 
 ## Example Use Case
 
 Let's say you're building a recruiting agent that only sends messages to candidates with the name of "Alice" or "Bob:
 
-Condition: "Is the candidates name Alice or Bob?"
-
-- If True: Action workflow block to send a message to the candidate
-
-## Key Features
-
-- Write conditions in plain English
-- Make dynamic decisions in your workflow
-- Control which actions execute based on specific criteria
-- Combine with other blocks for complex logic
+<Frame>
+  <img
+    src="/images/conditional_example.png"
+    width="400"
+    alt="Conditional example"
+  />
+</Frame>

@@ -1,79 +1,34 @@
 ---
 title: "Using the AI Assistant"
-description: "Learn how to leverage the AI Assistant to quickly build your workflows"
+description: "Simply tell the AI what you want your workflow to do"
 icon: "sparkles"
 ---
 
-The AI Assistant is a powerful tool that helps you build workflows more efficiently by converting natural language instructions into concrete workflow blocks.
+# Using the AI Assistant
 
-## Overview
-
-AI Assistant allows you to quickly build your workflow by providing natural language instructions for the actions you want your agent to take. It maps your instructions to the actual workflow blocks and asks for your confirmation before making any changes.
-
-## Supported Blocks
-
-Currently, the AI Assistant supports adding the following types of blocks:
-
-- **Extraction Blocks**: For extracting data from web pages
-- **Navigation Blocks**: For navigating between different pages and elements
-- **Action Blocks**: For performing specific actions on web elements
+The AI Assistant converts your natural language instructions into workflow blocks automatically.
 
 ## How It Works
 
-1. **Describe Your Intent**: Tell the AI Assistant what you want your agent to do in plain English.
-2. **Review Suggestion**: The AI Assistant will suggest the appropriate workflow blocks and configurations
-3. **Confirm or Modify**: Accept the suggestions or request modifications before the blocks are added to your workflow
-4. **Automatic Execution**: As each workflow block is added, the assistant automatically executes the workflow block in the browser, performing the corresponding action in real-time
+1. **Type what you want** - Tell the AI Assistant what actions you need in plain English
+2. **Confirm or modify** - Approve the suggestion or ask for changes
+3. **Watch it work** - The Assistant executes on the web-page in real-time and adds the corresponding blocks to your workflow
 
-### Block Placement
+## Examples of What You Can Type
 
-The AI Assistant will insert new workflow blocks at your currently selected position. You can see where the block will be inserted at the top of the AI Assistant panel.
-
-<Frame>
-  <img
-    width="400"
-    src="/images/ai-assistant-panel.png"
-    alt="AI Assistant panel showing insertion point"
-  />
-</Frame>
-
-To specify where you want to add a new block:
-
-1. Click between existing blocks to highlight a gap
-2. The selected gap will be highlighted, indicating where the new block will be inserted
-
-<Frame>
-  <img
-    width="400"
-    src="/images/selected-gap.png"
-    alt="Example of a selected gap between blocks"
-  />
-</Frame>
-
-If no gap is highlighted, new blocks will be added to the end of your workflow by default.
-
-## Best Practices
-
-- Be clear and specific in your instructions to get more accurate suggestions
-- Review the suggestions carefully before confirming
-- Use natural, conversational language - no need for technical terms
-- You can now include multiple actions in a single instruction, but for complex workflows, consider breaking them into logical groups
-
-### Example Instructions
-
-**You can use simple, single-action instructions:**
+**Simple instructions:**
 
 - "Type example@example.com into the username field"
 - "Click the login button"
 
-**Or comprehensive multi-action instructions:**
+**Multi-step instructions:**
 
-```
-Login with username: example@example.com and password: hunter2
-```
+- "Login with username: example@example.com and password: hunter2"
+- "Go to the products page, find the first item with a 5-star rating, add it to the cart, and proceed to checkout"
 
-**And even more complex sequences:**
+## Tips for Best Results
 
-```
-Go to the products page, find the first item with a 5-star rating, add it to the cart, and proceed to checkout
-```
+- Be specific about what you want
+- Use everyday language - no technical terms needed
+- Review suggestions before confirming
+- For complex workflows, you can break them into logical groups of instructions as if you were giving instructions to a new hire
