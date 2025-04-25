@@ -18,6 +18,13 @@
             "pages": ["introduction", "getting-started"]
           },
           {
+            "group": "Recursion",
+            "icon": "sparkles",
+            "pages": [
+              "recursion-agent/using-recursion-agent"
+            ]
+          },
+          {
             "group": "Agent Data",
             "pages": [
               "agent-data/introduction",
@@ -26,13 +33,7 @@
               "agent-data/output"
             ]
           },
-          {
-            "group": "AI Assistant",
-            "icon": "sparkles",
-            "pages": [
-              "ai-assistant/using-ai-assistant"
-            ]
-          },
+          
           {
             "group": "Workflow Blocks",
             "pages": [
