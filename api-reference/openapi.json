@@ -312,6 +312,44 @@
           }
         }
       }
+    },
+    "/api/get_session_result/{session_id}": {
+      "get": {
+        "description": "Returns the complete session result including the execution data and output. This endpoint is useful for retrieving the final result of a completed session.",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "description": "Unique identifier for the session",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete session result data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResultResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -650,6 +688,25 @@
             "type": "string",
             "enum": ["create", "update", "replace"],
             "description": "The type of operation performed (create, update, or replace)"
+          }
+        }
+      },
+      "SessionResultResponse": {
+        "type": "object",
+        "description": "Response schema for session result data",
+        "required": ["status", "result"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Current status of the session"
+          },
+          "result": {
+            "description": "The output result of the session execution"
+          },
+          "error_message": {
+            "type": "string",
+            "description": "Error message if the session failed",
+            "nullable": true
           }
         }
       }
